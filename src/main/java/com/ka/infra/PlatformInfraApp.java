@@ -1,7 +1,6 @@
 package com.ka.infra;
 
 import com.ka.infra.constant.ConfigKeys;
-import com.ka.infra.stack.FargateServiceStack;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,18 +15,16 @@ public class PlatformInfraApp {
   public static void main(final String[] args) {
     Properties properties = loadConfiguration();
     App app = new App();
-    initStacks(app, properties);
-  }
 
-  private static void initStacks(App app, Properties properties) {
     final String account = properties.getProperty(ConfigKeys.KEY_ACCOUNT);
     final String region = properties.getProperty(ConfigKeys.KEY_REGION);
     final StackProps stackProperties =
         StackProps.builder().env(Environment.builder().account(account).region(region).build())
             .build();
+    final String platformStackName =
+        properties.getProperty(ConfigKeys.KEY_CLOUDFORMATION_STACK_NAME);
 
-    new FargateServiceStack(app, properties.getProperty(ConfigKeys.KEY_CLOUDFORMATION_STACK_NAME)
-        , stackProperties, properties);
+    new PlatformInfraStack(app, platformStackName, stackProperties, properties);
   }
 
   private static Properties loadConfiguration() {

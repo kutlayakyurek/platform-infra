@@ -19,11 +19,11 @@ public class CalculationService extends AbstractEcsService {
 
   @Override
   protected void loadProperties() {
-    serviceName = properties.getProperty(ConfigKeys.KEY_ECS_CALCULATION_SERVICE_NAME);
-    clusterName = properties.getProperty(ConfigKeys.KEY_ECS_CLUSTER_NAME);
-    registry = properties.getProperty(ConfigKeys.KEY_ECS_CALCULATION_SERVICE_REGISTRY);
+    serviceName = properties.getProperty(ConfigKeys.KEY_CALCULATION_SERVICE_ECS_SERVICE_NAME);
+    clusterName = properties.getProperty(ConfigKeys.KEY_CALCULATION_SERVICE_ECS_CLUSTER_NAME);
+    registry = properties.getProperty(ConfigKeys.KEY_CALCULATION_SERVICE_ECS_REGISTRY);
     containerPort = Integer
-        .parseInt(properties.getProperty(ConfigKeys.KEY_ECS_CALCULATION_SERVICE_CONTAINER_PORT));
+        .parseInt(properties.getProperty(ConfigKeys.KEY_CALCULATION_SERVICE_ECS_CONTAINER_PORT));
   }
 
   @Override
@@ -35,6 +35,7 @@ public class CalculationService extends AbstractEcsService {
         serviceName,
         ApplicationLoadBalancedFargateServiceProps.builder()
             .cluster(cluster)
+            .serviceName(serviceName)
             .taskImageOptions(ApplicationLoadBalancedTaskImageOptions.builder()
                 .image(ContainerImage.fromRegistry(registry))
                 .containerPort(containerPort)

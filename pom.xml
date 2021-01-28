@@ -13,6 +13,7 @@
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <awscdk.version>[1.19.0, 2)</awscdk.version>
         <junit.version>4.13.1</junit.version>
+        <java.source.version>1.8</java.source.version>
     </properties>
 
     <dependencies>
@@ -28,7 +29,22 @@
         </dependency>
         <dependency>
             <groupId>software.amazon.awscdk</groupId>
+            <artifactId>dynamodb</artifactId>
+            <version>${awscdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
             <artifactId>ecs-patterns</artifactId>
+            <version>${awscdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>${awscdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awscdk</groupId>
+            <artifactId>s3-notifications</artifactId>
             <version>${awscdk.version}</version>
         </dependency>
         <dependency>
@@ -46,11 +62,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.source.version}</source>
+                    <target>${java.source.version}</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
